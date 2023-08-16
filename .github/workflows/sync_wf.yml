@@ -36,9 +36,11 @@ jobs:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
         run: |
+          git switch -c workflow-update
           git remote add upstream https://github.com/neurobagel/workflows.git
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
+          git merge main --allow-unrelated-histories
       - name: Create Pull Request
         id: create-pull-request
         uses: peter-evans/create-pull-request@v4
