@@ -15,7 +15,7 @@ jobs:
       - name: Get current repositories
         id: get_repo
         env:
-          GH_TOKEN: ${{ secrets.SEB_PR_PAT  }}
+          GH_TOKEN: ${{ secrets.NB_PR_PAT  }}
           MAX_REPO: 2
           
         run: |
@@ -32,6 +32,7 @@ jobs:
         fork: ${{fromJSON(needs.get_repos.outputs.repos)}}
     steps:
       - uses: actions/checkout@v3
+        if: github.repository != 'neurobagel/workflows'
         with:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
@@ -39,22 +40,12 @@ jobs:
           git remote add upstream https://github.com/neurobagel/workflows.git
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
-          git switch -c upstream-workflow
-          git push --set-upstream origin upstream-workflow
-      - name: Create manual PR
-        env:
-          GH_TOKEN: ${{ secrets.SEB_PR_PAT  }}
-        run: |
-          gh pr create \
-          --title "Update to github workflows from neurobagel/workflows" \
-          --body "PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action." \
-          --label "@ bot"
       - name: Create Pull Request
         id: create-pull-request
         uses: peter-evans/create-pull-request@v4
         with:
           title: Update to github workflows from neurobagel/workflows
           body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action. 
-          token: ${{ secrets.SEB_PR_PAT }}
+          token: ${{ secrets.NB_PR_PAT }}
           branch: main-upstream
           labels: "@ bot"
