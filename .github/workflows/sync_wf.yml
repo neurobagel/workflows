@@ -16,7 +16,8 @@ jobs:
         id: get_repo
         env:
           GH_TOKEN: ${{ secrets.LAB_PAT  }}
-          MAX_REPO: 1
+          MAX_REPO: 2
+          
         run: |
           repo_list=$(gh repo list $GITHUB_REPOSITORY_OWNER --no-archived -L ${MAX_REPO} --json owner,name --jq '.[] | "\(.owner.login)/\(.name)"' | jq -cnR '[inputs | select(length>0)]')
           echo "repositories=${repo_list}" >> $GITHUB_OUTPUT
