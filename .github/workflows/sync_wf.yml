@@ -15,7 +15,7 @@ jobs:
       - name: Get current repositories
         id: get_repo
         env:
-          GH_TOKEN: ${{ secrets.LAB_PAT  }}
+          GH_TOKEN: ${{ secrets.SEB_PR_PAT  }}
           MAX_REPO: 2
           
         run: |
@@ -45,6 +45,6 @@ jobs:
         with:
           title: Update to github workflows from neurobagel/workflows
           body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action. 
-          token: ${{ secrets.LAB_PAT }}
+          token: ${{ secrets.SEB_PR_PAT }}
           branch: main-upstream
           labels: "@ bot"
