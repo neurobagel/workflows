@@ -32,7 +32,6 @@ jobs:
         fork: ${{fromJSON(needs.get_repos.outputs.repos)}}
     steps:
       - uses: actions/checkout@v3
-        if: github.repository != 'neurobagel/workflows'
         with:
           repository: ${{ matrix.fork }}
       - name: Get upstream changes
