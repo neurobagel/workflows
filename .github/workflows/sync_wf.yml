@@ -40,6 +40,7 @@ jobs:
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
           git switch -c upstream-workflow
+          git push --set-upstream origin upstream-workflow
       - name: Create manual PR
         env:
           GH_TOKEN: ${{ secrets.SEB_PR_PAT  }}
