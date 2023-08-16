@@ -1,0 +1,49 @@
+name: Push workflows
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  get_repos:
+    name: Get all repositories
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.get_repo.outputs.repositories }}
+    steps:
+      - name: Get current repositories
+        id: get_repo
+        env:
+          GH_TOKEN: ${{ secrets.LAB_PAT  }}
+          MAX_REPO: 1
+        run: |
+          repo_list=$(gh repo list $GITHUB_REPOSITORY_OWNER --no-archived -L ${MAX_REPO} --json owner,name --jq '.[] | "\(.owner.login)/\(.name)"' | jq -cnR '[inputs | select(length>0)]')
+          echo "repositories=${repo_list}" >> $GITHUB_OUTPUT
+          
+  update-repo-workflows:
+    if: github.repository == 'neurobagel/workflows'
+    runs-on: ubuntu-latest
+    needs: get_repos
+    strategy:
+      fail-fast: false
+      matrix:
+        fork: ${{fromJSON(needs.get_repos.outputs.repos)}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.fork }}
+      - name: Get upstream changes
+        run: |
+          git remote add upstream https://github.com/neurobagel/workflows.git
+          git fetch upstream main:upstream-main
+          git reset --hard upstream-main
+      - name: Create Pull Request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: Update to github workflows from neurobagel/workflows
+          body: PR created/updated automatically by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action. 
+          token: ${{ secrets.LAB_PAT }}
+          branch: main-upstream
+          labels: "@ bot"
