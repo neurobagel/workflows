@@ -1,0 +1,20 @@
+group:
+  repos: |
+    neurobagel/annotation_tool
+    neurobagel/api
+    neurobagel/bagel-cli
+    neurobagel/bagelschema
+    neurobagel/browbids
+    neurobagel/bulk_annotations
+    neurobagel/documentation
+    neurobagel/neurobagel_examples
+    neurobagel/openneuro-annotations
+    neurobagel/planning
+    neurobagel/proc_dash
+    neurobagel/project
+    neurobagel/query-tool
+    neurobagel/project
+    neurobagel/workflows
+  files: 
+    - source: workflows/
+      dest: .github/workflows/
