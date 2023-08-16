@@ -39,6 +39,7 @@ jobs:
           git remote add upstream https://github.com/neurobagel/workflows.git
           git fetch upstream main:upstream-main
           git reset --hard upstream-main
+          git switch -c upstream-workflow
       - name: Create manual PR
         env:
           GH_TOKEN: ${{ secrets.SEB_PR_PAT  }}
