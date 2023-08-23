@@ -1,13 +1,122 @@
 name: Manage PR
 on:
   pull_request:
-    types:
-      - labeled
+    types: [ labeled ]
 
 jobs:
   process_labeled_pr:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo The PR with the id ${{ github.event.pull_request.id }} was labeled with ${{ github.event.label.name }}
+      - id: preview_label_check
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          any_of: _bot,_community
+          repo_token: ${{ secrets.NB_PROJECT_PAT }}
+          allow_failure: true
       
+      - if: steps.preview_label_check.outputs.label_check == 'success'
+        run: |
+          echo The PR with the id ${{ github.event.pull_request.id }} and node id ${{ github.event.pull_request.node_id }} was labeled with ${{ github.event.label.name }}
+      - name: Detect if PR is in project
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: in_project
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: | 
+          gh pr view ${{ github.event.pull_request.html_url }} --json projectItems | jq -r '.projectItems[].title' | grep Neurobagel
+        continue-on-error: true
+
+      - name: Add to Project
+        if: steps.in_project.outcome == 'failure' && steps.preview_label_check.outputs.label_check == 'success' 
+        uses: actions/add-to-project@main
+        with:
+          project-url: https://github.com/orgs/neurobagel/projects/1
+          github-token: ${{ secrets.NB_PROJECT_PAT }}
+
+      - name: Find project container
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: find_container
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: |
+          out=$(newCursor=""
+          while true; do
+        
+            response=$(gh api graphql -f query='{
+              organization(login: "neurobagel") {
+                  projectV2(number: 1) {
+                  items(first: 100, orderBy: {field: POSITION, direction: DESC}, after: "'"${newCursor}"'") {
+                      edges {
+                      cursor
+                      node {
+                          content {
+                          ... on PullRequest {
+                              childID: id
+                          }
+                          }
+                          parentID: id
+                      }
+                      }
+                  }
+                  }
+              }
+              }')
+          
+              # Iterate over each element in the response and extract pID and cID
+              while read -r pID cID cursor; do
+          
+              if [ "$cID" == "${{ github.event.pull_request.node_id }}" ];
+                  then
+                      echo $pID;
+                      exit 0;
+                  fi
+                  newCursor="$cursor"
+              done <<< $(echo "$response" | jq -r '.data.organization.projectV2.items.edges[] | "\(.node.parentID) \(.node.content.childID) \(.cursor)"')
+              
+              if [ ! -n "$newCursor" ]; then
+                  # We have passed through the entire list of items and didn't find our issue
+                  exit 1;
+              fi
+          done
+          )
+          echo "parent_id=${out}" >> $GITHUB_OUTPUT
+
+      - name: get field and option id
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: get_id
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+          FIELD: "Status"
+          OPTION: "Community"
+        run: |
+          response=$(gh api graphql -f query='{
+            organization(login: "neurobagel") {
+              projectV2(number: 1) {
+                field(name: "'"${FIELD}"'") {
+                  ... on ProjectV2SingleSelectField {
+                    fieldID: id
+                    options(names: "'"${OPTION}"'") {
+                      optionID: id
+                    }
+                  }
+                }
+              }
+            }
+          }' | jq '.data.organization.projectV2.field | "\(.fieldID) \(.options[0].optionID)"')
+          read fieldID optionID <<< "${response//\"}"
+          
+          echo "fieldID=${fieldID}" >> $GITHUB_OUTPUT
+          echo "optionID=${optionID}" >> $GITHUB_OUTPUT
+
+      - name: Move PR to Community status
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: |
+          gh api graphql -f query='mutation {
+            updateProjectV2ItemFieldValue(     
+              input: {projectId: "PVT_kwDOBaeejM4AAQiP", itemId: "${{ steps.find_container.outputs.parent_id }}", fieldId: "${{ steps.get_id.outputs.fieldID }}", value: {singleSelectOptionId: "${{ steps.get_id.outputs.optionID }}"}}
+            ) {                                                                
+              clientMutationId
+            }             
+          }'
