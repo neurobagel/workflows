@@ -1,0 +1,13 @@
+name: Manage PR
+on:
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  process_labeled_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo The PR with the id ${{ github.event.pull_request.id }} was labeled with ${{ github.event.label.name }}
+      
