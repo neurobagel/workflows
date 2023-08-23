@@ -14,9 +14,6 @@ jobs:
           repo_token: ${{ secrets.NB_PROJECT_PAT }}
           allow_failure: true
       
-      - if: steps.preview_label_check.outputs.label_check == 'success'
-        run: |
-          echo The PR with the id ${{ github.event.pull_request.id }} and node id ${{ github.event.pull_request.node_id }} was labeled with ${{ github.event.label.name }}
       - name: Detect if PR is in project
         if: steps.preview_label_check.outputs.label_check == 'success'
         id: in_project
