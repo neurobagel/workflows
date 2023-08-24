@@ -16,7 +16,7 @@ jobs:
   add2project:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if label of interest
+      - name: Check if label of interest is applied
         id: preview_label_check
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
