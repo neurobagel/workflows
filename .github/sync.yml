@@ -16,5 +16,5 @@ group:
     neurobagel/project
     neurobagel/workflows
   files: 
-    - source: workflows/
+    - source: template_workflows/
       dest: .github/workflows/
