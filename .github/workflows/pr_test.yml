@@ -1,0 +1,15 @@
+name: PR test
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # from https://github.com/marketplace/actions/create-pull-request
+      - name: Checkout Repository
+        uses: actions/checkout@master
+      - name: Make changes to pull request
+        run: date +%s > report.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
