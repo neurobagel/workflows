@@ -18,3 +18,4 @@ group:
   files: 
     - source: template_workflows/
       dest: .github/workflows/
+      deleteOrphaned: true
