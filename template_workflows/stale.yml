@@ -22,4 +22,3 @@ jobs:
           days-before-close: -1
           stale-issue-label: '_flag:stale'
           exempt-issue-labels: 'Roadmap,Milestone,Epic,someday'
-          labels-to-remove-when-unstale: '_flag:stale'
