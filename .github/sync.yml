@@ -1,5 +1,5 @@
 group:
-  # Workflows related to project organization
+  # Workflows related to project automation
   - files: 
       - source: template_workflows/project_automation/
         dest: .github/workflows/
