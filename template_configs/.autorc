@@ -8,7 +8,13 @@
         "git-tag",
         "released",
         "protected-branch",
-        "first-time-contributor"
+        "first-time-contributor",
+        "omit-commits",
+        {
+            "username": "dependabot[bot]",
+            "subject": "[pre-commit.ci]",
+            "labels": "_bot"
+        }
     ],
     "labels": [
         {
