@@ -1,24 +1,37 @@
 group:
-  repos: |
-    neurobagel/annotation_tool
-    neurobagel/api
-    neurobagel/bagel-cli
-    neurobagel/bagelschema
-    neurobagel/bulk_annotations
-    neurobagel/browbids
-    neurobagel/digest
-    neurobagel/documentation
-    neurobagel/neurobagel_examples
-    neurobagel/federation-api
-    neurobagel/menu
-    neurobagel/openneuro-annotations
-    neurobagel/planning
-    neurobagel/proc_dash
-    neurobagel/project
-    neurobagel/project
-    neurobagel/query-tool
-    neurobagel/recipes
-    neurobagel/workflows
-  files: 
-    - source: template_workflows/
-      dest: .github/workflows/
+  # Workflows related to project automation
+  - files: 
+      - source: template_workflows/project_automation/
+        dest: .github/workflows/
+    repos: |
+      neurobagel/annotation_tool
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/bagelschema
+      neurobagel/bulk_annotations
+      neurobagel/browbids
+      neurobagel/digest
+      neurobagel/documentation
+      neurobagel/neurobagel_examples
+      neurobagel/federation-api
+      neurobagel/menu
+      neurobagel/openneuro-annotations
+      neurobagel/planning
+      neurobagel/project
+      neurobagel/query-tool
+      neurobagel/recipes
+      neurobagel/workflows
+  
+  # Workflow and configuration files for auto-releasing with intuit/auto
+  - files:
+      - source: template_workflows/auto_release/
+        dest: .github/workflows/
+      - source: template_configs/.autorc
+        dest: .autorc
+      - source: template_prs/auto_release_repo_pr.md
+        dest: .github/pull_request_template.md
+    # TODO: add JS repos once React migration is complete?
+    repos: |
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/federation-api
