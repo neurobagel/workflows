@@ -35,3 +35,22 @@ group:
       neurobagel/api
       neurobagel/bagel-cli
       neurobagel/federation-api
+
+# Workflows to build + push SEMVER Docker image on release
+neurobagel/api:
+  - source: template_workflows/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      docker_repo: 'api'
+
+neurobagel/bagel-cli:
+  - source: template_workflows/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      docker_repo: 'bagelcli'
+
+neurobagel/federation-api:
+  - source: template_workflows/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      docker_repo: 'federation_api'
