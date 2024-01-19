@@ -41,16 +41,19 @@ neurobagel/api:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
     template:
-      docker_repo: 'api'
+      synced_repo:
+        docker_repo_name: 'api'
 
 neurobagel/bagel-cli:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
     template:
-      docker_repo: 'bagelcli'
+      synced_repo:
+        docker_repo_name: 'bagelcli'
 
 neurobagel/federation-api:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
     template:
-      docker_repo: 'federation_api'
+      synced_repo:
+        docker_repo_name: 'federation_api'

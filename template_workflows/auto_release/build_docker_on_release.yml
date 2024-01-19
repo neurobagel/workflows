@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/{{ docker_repo }}:latest, ${{ secrets.DOCKERHUB_USERNAME }}/{{ docker_repo }}:${{ github.event.release.tag_name }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/{{ synced_repo.docker_repo_name }}:latest, ${{ secrets.DOCKERHUB_USERNAME }}/{{ synced_repo.docker_repo_name }}:${{ github.event.release.tag_name }}
