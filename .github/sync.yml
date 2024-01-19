@@ -24,8 +24,8 @@ group:
   
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
-      - source: template_workflows/auto_release/
-        dest: .github/workflows/
+      - source: template_workflows/auto_release/release.yaml
+        dest: .github/workflows/release.yaml
       - source: template_configs/.autorc
         dest: .autorc
       - source: template_prs/auto_release_repo_pr.md
@@ -35,3 +35,25 @@ group:
       neurobagel/api
       neurobagel/bagel-cli
       neurobagel/federation-api
+
+# Workflows to build + push SEMVER Docker image on release
+neurobagel/api:
+  - source: template_workflows/auto_release/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      synced_repo:
+        docker_repo_name: 'api'
+
+neurobagel/bagel-cli:
+  - source: template_workflows/auto_release/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      synced_repo:
+        docker_repo_name: 'bagelcli'
+
+neurobagel/federation-api:
+  - source: template_workflows/auto_release/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      synced_repo:
+        docker_repo_name: 'federation_api'
