@@ -42,22 +42,27 @@ neurobagel/api:
     dest: .github/workflows/build_docker_on_release.yml
     template:
       synced_repo:
-        test_username_unquoted: ${{ secrets.TEST_USERNAME }}
-        test_username_quoted: '${{ secrets.TEST_USERNAME }}'
-        test_username_github: ${ secrets.TEST_USERNAME }
-        test_username_template: {{ secrets.TEST_USERNAME }}
+        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
+        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
         docker_repo_name: 'api'
+        release_tag: '${{ github.event.release.tag_name }}'
 
 neurobagel/bagel-cli:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
     template:
       synced_repo:
+        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
+        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
         docker_repo_name: 'bagelcli'
+        release_tag: '${{ github.event.release.tag_name }}'
 
 neurobagel/federation-api:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
     template:
       synced_repo:
+        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
+        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
         docker_repo_name: 'federation_api'
+        release_tag: '${{ github.event.release.tag_name }}'
