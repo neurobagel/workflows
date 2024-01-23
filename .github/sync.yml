@@ -42,6 +42,10 @@ neurobagel/api:
     dest: .github/workflows/build_docker_on_release.yml
     template:
       synced_repo:
+        test_username_unquoted: ${{ secrets.TEST_USERNAME }}
+        test_username_quoted: '${{ secrets.TEST_USERNAME }}'
+        test_username_github: ${ secrets.TEST_USERNAME }
+        test_username_template: {{ secrets.TEST_USERNAME }}
         docker_repo_name: 'api'
 
 neurobagel/bagel-cli:
