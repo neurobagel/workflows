@@ -44,6 +44,8 @@ neurobagel/api:
       synced_repo:
         test_username_unquoted: ${{ secrets.TEST_USERNAME }}
         test_username_quoted: '${{ secrets.TEST_USERNAME }}'
+        test_username_github: ${ secrets.TEST_USERNAME }
+        test_username_template: {{ secrets.TEST_USERNAME }}
         docker_repo_name: 'api'
 
 neurobagel/bagel-cli:
