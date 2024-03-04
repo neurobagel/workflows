@@ -27,7 +27,7 @@ Changes proposed in this pull request:
 
 <!-- To be checked off by reviewers -->
 ## Checklist
-_Please leave boxes unchecked for PR reviewers_
+_This section is for the PR reviewer_
 
 - [ ] PR has an interpretable title with a prefix (`[ENH]`, `[FIX]`, `[REF]`, `[TST]`, `[CI]`, `[MNT]`, `[INF]`, `[MODEL]`, `[DOC]`) _(see our [Contributing Guidelines](https://neurobagel.org/contributing/CONTRIBUTING#pull-request-guidelines) for more info)_
 - [ ] PR has a label for the release changelog or `skip-release` (to be applied by maintainers only)
