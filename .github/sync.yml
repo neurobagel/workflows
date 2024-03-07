@@ -32,11 +32,22 @@ group:
         dest: .github/pull_request_template.md
     # TODO: add JS repos once React migration is complete?
     repos: |
+      neurobagel/query-tool
       neurobagel/api
       neurobagel/bagel-cli
       neurobagel/federation-api
 
 # Workflows to build + push SEMVER Docker image on release
+neurobagel/query-tool:
+  - source: template_workflows/auto_release/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      synced_repo:
+        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
+        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
+        docker_repo_name: 'query_tool'
+        release_tag: '${{ github.event.release.tag_name }}'
+
 neurobagel/api:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
