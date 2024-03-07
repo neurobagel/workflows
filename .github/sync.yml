@@ -47,6 +47,7 @@ neurobagel/query-tool:
         dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
         docker_repo_name: 'query_tool'
         release_tag: '${{ github.event.release.tag_name }}'
+
 neurobagel/api:
   - source: template_workflows/auto_release/build_docker_on_release.yml
     dest: .github/workflows/build_docker_on_release.yml
