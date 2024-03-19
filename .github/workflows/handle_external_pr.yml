@@ -5,7 +5,11 @@ on:
     types: [opened]
 
 jobs:
-  build:
+  handle_external_pr:
+    # Only run this entire workflow if the PR was opened from a forked repo
+    # The reasoning is that both bots and external contributors have to make
+    # a fork of the repo before they can open a PR because they don't have
+    # write access to the repo.
     if: github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
 
@@ -13,6 +17,12 @@ jobs:
       - name: Add PR to project
         run: |
           gh pr edit ${{ github.event.pull_request.url }} --add-project Neurobagel
+
+      - name: Label pull request with "_community"
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "_community"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 
       - name: Find project node id
         id: project_node
