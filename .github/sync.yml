@@ -36,6 +36,26 @@ group:
       neurobagel/api
       neurobagel/bagel-cli
       neurobagel/federation-api
+  - files:
+      - source: template_configs/LICENSE
+        dest: LICENSE
+    # TODO: add JS repos once React migration is complete?
+    repos: |
+      neurobagel/annotation_tool
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/bagelschema
+      neurobagel/digest
+      neurobagel/documentation
+      neurobagel/neurobagel_examples
+      neurobagel/federation-api
+      neurobagel/menu
+      neurobagel/openneuro-annotations
+      neurobagel/planning
+      neurobagel/project
+      neurobagel/query-tool
+      neurobagel/recipes
+      neurobagel/workflows
 
 # Workflows to build + push SEMVER Docker image on release
 neurobagel/query-tool:
