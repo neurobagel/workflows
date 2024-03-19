@@ -2,7 +2,7 @@
 # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
-  # NOTE: dependabot.yml doesn't support globs/arrays of directories yet, so we use this workaround to ensure all files are checked:
+  # NOTE: dependabot.yml doesn't support globs/arrays of directories yet, so as a workaround we list every workflow directory explicitly here to ensure all files are checked:
   # https://github.com/dependabot/dependabot-core/issues/2824#issuecomment-741693711
   - package-ecosystem: 'github-actions'
     directory: '/template_workflows/auto_release'
