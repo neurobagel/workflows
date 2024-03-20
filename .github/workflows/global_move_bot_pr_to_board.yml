@@ -1,6 +1,6 @@
 # This workflow runs on a schedule
 # It finds all the PR owned by neurobagel
-# that have the _bot label applied.
+# that have the _bot or _community labels applied.
 # It then checks if the PR has already been added to 
 # the main project and adds the PR if it hasn't been added yet.
 # Finally the workflow moves the PR to the "Community" column
@@ -15,7 +15,7 @@ on:
 
 jobs:
   get_prs:
-    name: Get all PRs with the bot label
+    name: Get all PRs with the _bot or _community labels
     runs-on: ubuntu-latest
     outputs:
       urls: ${{ steps.get_pr.outputs.pr_urls }}
