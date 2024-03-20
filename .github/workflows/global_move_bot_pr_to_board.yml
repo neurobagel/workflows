@@ -1,0 +1,165 @@
+# This workflow runs on a schedule
+# It finds all the PR owned by neurobagel
+# that have the _bot or _community labels applied.
+# It then checks if the PR has already been added to 
+# the main project and adds the PR if it hasn't been added yet.
+# Finally the workflow moves the PR to the "Community" column
+# on the project board.
+
+name: Scheduled PR automation
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 5,17 * * *'
+  workflow_dispatch:
+
+jobs:
+  get_prs:
+    name: Get all PRs with the _bot or _community labels
+    runs-on: ubuntu-latest
+    outputs:
+      urls: ${{ steps.get_pr.outputs.pr_urls }}
+    steps:
+      - name: Get current repositories
+        id: get_pr
+        env:
+          GH_TOKEN: ${{ secrets.LAB_PAT  }}
+          MAX_REPO: 50
+        run: |
+          pr_urls=$(gh search prs --owner neurobagel label:_bot,_community --state open --json 'url' | jq -c '[.[].url]')
+          echo "pr_urls=${pr_urls}" >> $GITHUB_OUTPUT
+
+  process_prs:
+    name: Process PR
+    runs-on: ubuntu-latest
+    env:
+      # Note that all tasks in this job require a personal access token 
+      # with PROJECT permissions, see
+      # https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28#organization-permissions-for-projects
+      GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+    needs: get_prs
+    strategy:
+      fail-fast: false
+      matrix: 
+        url: ${{fromJSON(needs.get_prs.outputs.urls)}}
+
+    steps:
+      
+      - name: Check if PR is in project
+        id: in_project
+        continue-on-error: true
+        run: |
+          gh pr view ${{ matrix.url }}  --json 'projectItems' | jq -r '.projectItems[0].title' | grep Neurobagel
+      
+      - name: Add PR to project
+        if: steps.in_project.outcome == 'failure'
+        run: |
+          gh pr edit ${{ matrix.url }} --add-project Neurobagel
+
+        # Note that in contrast to the graphical github UI,
+        # once a PR (or other item) is added to a github project, 
+        # project related changes are no longer applied directly to the PR
+        # but instead to the project card that contains the PR.
+        # Once the PR is added to the project (and thus has a project card)
+        # we therefore have to search for the node id of the containing project card
+        # and then set the Status and Community option on the project card.
+        #
+        # This step expects to find the id of the (parent) project card
+        # and will fail (crashing the entire workflow) otherwise
+      - name: Find project node id
+        id: project_node
+        run: | 
+          # Get the node ID of the PR
+          node_id=$(gh pr view ${{ matrix.url }}  --json 'id' | jq -r '.id')
+          parent_id=$(
+              newCursor=""
+              while true; do
+          
+              response=$(gh api graphql -f query='{
+                  organization(login: "neurobagel") {
+                      projectV2(number: 1) {
+                      items(first: 100, orderBy: {field: POSITION, direction: DESC}, after: "'"${newCursor}"'") {
+                          edges {
+                          cursor
+                          node {
+                              content {
+                              ... on PullRequest {
+                                  childID: id
+                              }
+                              }
+                              parentID: id
+                          }
+                          }
+                      }
+                      }
+                  }
+                  }')
+          
+                  # Because we may not be able to find the parent ID in the first 100 items
+                  # we have to keep advancing the cursor to move through the list
+                  # Note: we use 100 items to balance speed and API limits, might have to be changed
+                  while read -r pID cID cursor; do
+          
+                  if [ "$cID" == "${node_id}" ];
+                      then
+                          echo $pID;
+                          exit 0;
+                      fi
+                      newCursor="$cursor"
+                  # Note: we need to use the here string
+                  # to avoid running the while loop in a subshell that would not let us access newCursor
+                  # after the while loop has finished
+                  # see: https://tldp.org/LDP/abs/html/subshells.html
+                  done <<< $(echo "$response" | jq -r '.data.organization.projectV2.items.edges[] | "\(.node.parentID) \(.node.content.childID) \(.cursor)"')
+                  
+                  if [ ! -n "$newCursor" ]; then
+                      # We have passed through the entire list of items 
+                      # and didn't find the project card for our PR.
+                      # Something is wrong and we will now crash the workflow.
+                      exit 1;
+                  fi
+              done
+          )
+          echo "parent_id=${parent_id}" >> $GITHUB_OUTPUT
+        # This step expects a custom field called "Status"
+        # with an option called "Community" to exist in the project.
+        # We need their IDs as input for our later call to the API
+        # to move our PR project card to the "Community" column.
+        # 
+        # We make them available to other steps in this job
+        # by writing them to the GITHUB_OUTPUT environment variable.
+        # see: https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+      - name: Get IDs for Status field and Community option
+        id: get_id
+        env:
+          FIELD: "Status"
+          OPTION: "Community"
+        run: |
+          response=$(gh api graphql -f query='{
+            organization(login: "neurobagel") {
+              projectV2(number: 1) {
+                field(name: "'"${FIELD}"'") {
+                  ... on ProjectV2SingleSelectField {
+                    fieldID: id
+                    options(names: "'"${OPTION}"'") {
+                      optionID: id
+                    }
+                  }
+                }
+              }
+            }
+          }' | jq '.data.organization.projectV2.field | "\(.fieldID) \(.options[0].optionID)"')
+          read fieldID optionID <<< "${response//\"}"
+          
+          echo "fieldID=${fieldID}" >> $GITHUB_OUTPUT
+          echo "optionID=${optionID}" >> $GITHUB_OUTPUT
+
+      - name: Set "Status" of PR to "Community"
+        run: |
+          gh api graphql -f query='mutation {
+            updateProjectV2ItemFieldValue(     
+              input: {projectId: "PVT_kwDOBaeejM4AAQiP", itemId: "${{ steps.project_node.outputs.parent_id }}", fieldId: "${{ steps.get_id.outputs.fieldID }}", value: {singleSelectOptionId: "${{ steps.get_id.outputs.optionID }}"}}
+            ) {                                                                
+              clientMutationId
+            }             
+          }'
