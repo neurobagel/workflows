@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ secrets.LAB_PAT  }}
           MAX_REPO: 50
         run: |
-          pr_urls=$(gh search prs --owner neurobagel label:_bot --state open --json 'url' | jq -c '[.[].url]')
+          pr_urls=$(gh search prs --owner neurobagel label:_bot,_community --state open --json 'url' | jq -c '[.[].url]')
           echo "pr_urls=${pr_urls}" >> $GITHUB_OUTPUT
 
   process_prs:
