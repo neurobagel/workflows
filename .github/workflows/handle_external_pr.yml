@@ -17,4 +17,4 @@ jobs:
       - name: Label pull request with "_community"
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "_community"
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
