@@ -12,6 +12,8 @@ jobs:
     # write access to the repo.
     if: github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Add PR to project
