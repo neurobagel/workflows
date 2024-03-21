@@ -1,4 +1,4 @@
-name: Fork Pull Request Workflow
+name: Label pull requests from forks
 
 on:
   pull_request:
