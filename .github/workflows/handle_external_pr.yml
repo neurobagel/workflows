@@ -18,3 +18,4 @@ jobs:
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "_community"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
