@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened]
 
+permissions:
+  pull-requests: write
+
 jobs:
   handle_external_pr:
     # Only run this entire workflow if the PR was opened from a forked repo
