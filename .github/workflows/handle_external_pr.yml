@@ -1,11 +1,8 @@
 name: Label pull requests from forks
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened]
-
-permissions:
-  pull-requests: write
 
 jobs:
   handle_external_pr:
