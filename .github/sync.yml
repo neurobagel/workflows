@@ -57,6 +57,7 @@ group:
       neurobagel/project
       neurobagel/query-tool
       neurobagel/recipes
+      neurobagel/tools
       neurobagel/workflows
 
 # Workflows to build + push SEMVER Docker image on release
