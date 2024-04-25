@@ -20,6 +20,7 @@ group:
       neurobagel/project
       neurobagel/query-tool
       neurobagel/recipes
+      neurobagel/tools
       neurobagel/workflows
   
   # Workflow and configuration files for auto-releasing with intuit/auto
