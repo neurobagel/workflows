@@ -1,9 +1,9 @@
 # This workflow runs on a schedule
 # It finds all the PR owned by neurobagel
-# that have the _bot labels applied.
+# that have the _community labels applied.
 # It then checks if the PR has already been added to 
 # the main project and adds the PR if it hasn't been added yet.
-# Finally the workflow moves the PR to the "Automation" column
+# Finally the workflow moves the PR to the "Community" column
 # on the project board.
 
 name: Scheduled PR automation
@@ -15,7 +15,7 @@ on:
 
 jobs:
   get_prs:
-    name: Get all PRs with the _bot labels
+    name: Get all PRs with the _community labels
     runs-on: ubuntu-latest
     outputs:
       urls: ${{ steps.get_pr.outputs.pr_urls }}
@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ secrets.LAB_PAT  }}
           MAX_REPO: 50
         run: |
-          pr_urls=$(gh search prs --owner neurobagel label:_bot --state open --json 'url' | jq -c '[.[].url]')
+          pr_urls=$(gh search prs --owner neurobagel label:_community --state open --json 'url' | jq -c '[.[].url]')
           echo "pr_urls=${pr_urls}" >> $GITHUB_OUTPUT
 
   process_prs:
@@ -122,18 +122,18 @@ jobs:
           )
           echo "parent_id=${parent_id}" >> $GITHUB_OUTPUT
         # This step expects a custom field called "Status"
-        # with an option called "Automation" to exist in the project.
+        # with an option called "Community" to exist in the project.
         # We need their IDs as input for our later call to the API
-        # to move our PR project card to the "Automation" column.
+        # to move our PR project card to the "Community" column.
         # 
         # We make them available to other steps in this job
         # by writing them to the GITHUB_OUTPUT environment variable.
         # see: https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-      - name: Get IDs for Status field and Automation option
+      - name: Get IDs for Status field and Community option
         id: get_id
         env:
           FIELD: "Status"
-          OPTION: "Automation"
+          OPTION: "Community"
         run: |
           response=$(gh api graphql -f query='{
             organization(login: "neurobagel") {
@@ -154,7 +154,7 @@ jobs:
           echo "fieldID=${fieldID}" >> $GITHUB_OUTPUT
           echo "optionID=${optionID}" >> $GITHUB_OUTPUT
 
-      - name: Set "Status" of PR to "Automation"
+      - name: Set "Status" of PR to "Community"
         run: |
           gh api graphql -f query='mutation {
             updateProjectV2ItemFieldValue(     
