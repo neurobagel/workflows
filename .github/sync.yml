@@ -56,6 +56,7 @@ group:
       neurobagel/planning
       neurobagel/project
       neurobagel/query-tool
+      neurobagel/react-bagel
       neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
