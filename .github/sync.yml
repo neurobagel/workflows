@@ -61,6 +61,8 @@ group:
       neurobagel/tools
       neurobagel/workflows
 
+# TODO: look into using a single workflow for all repos
+# See also: https://github.com/neurobagel/workflows/issues/92
 # Workflows to build + push SEMVER Docker image on release
 neurobagel/query-tool:
   - source: template_workflows/auto_release/build_docker_on_release.yml
