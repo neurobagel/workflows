@@ -61,6 +61,25 @@ group:
       neurobagel/tools
       neurobagel/workflows
 
+  # # Workflows for python repositories
+  # - files:
+  #     - source: template_configs/README.md
+  #       dest: README.md
+  #   repos: |
+  #     neurobagel/api
+  #     neurobagel/bagel-cli
+  #     neurobagel/digest
+  #     neurobagel/federation-api
+  #     neurobagel/tools
+
+  # # Workflows for React repositories
+  # - files:
+  #     - source: template_configs/README.md
+  #       dest: README.md
+  #   repos: |
+  #     neurobagel/query-tool
+  #     neurobagel/react-bagel
+
 # TODO: look into using a single workflow for all repos
 # See also: https://github.com/neurobagel/workflows/issues/92
 # Workflows to build + push SEMVER Docker image on release
