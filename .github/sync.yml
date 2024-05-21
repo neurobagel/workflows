@@ -37,6 +37,7 @@ group:
       neurobagel/api
       neurobagel/bagel-cli
       neurobagel/federation-api
+      neurobagel/tools
 
   - files:
       - source: template_configs/LICENSE
@@ -99,4 +100,14 @@ neurobagel/federation-api:
         dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
         dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
         docker_repo_name: 'federation_api'
+        release_tag: '${{ github.event.release.tag_name }}'
+
+neurobagel/tools:
+  - source: template_workflows/auto_release/build_docker_on_release.yml
+    dest: .github/workflows/build_docker_on_release.yml
+    template:
+      synced_repo:
+        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
+        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
+        docker_repo_name: 'openneuro_uploader_api'
         release_tag: '${{ github.event.release.tag_name }}'
