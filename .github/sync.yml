@@ -109,5 +109,5 @@ neurobagel/tools:
       synced_repo:
         dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
         dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'openneuro_uploader_api'
+        docker_repo_name: 'openneuro_upload'
         release_tag: '${{ github.event.release.tag_name }}'
