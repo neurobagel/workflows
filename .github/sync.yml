@@ -41,7 +41,8 @@ group:
       neurobagel/recipes
 
   # Workflow to build + push SEMVER Docker image on release
-  # NOTE: Each repo needs to have a secret DOCKERHUB_REPO set up which refers to the DockerHub repository name
+  # NOTE: Each repo needs to have a secret with the name DOCKERHUB_REPO set up 
+  # which refers to the DockerHub repository name
   - files: 
       - source: template_workflows/auto_release/build_docker_on_release.yml
         dest: .github/workflows/build_docker_on_release.yml
