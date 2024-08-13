@@ -40,6 +40,18 @@ group:
       neurobagel/tools
       neurobagel/recipes
 
+  # Workflow to build + push SEMVER Docker image on release
+  # NOTE: Each repo needs to have a secret DOCKERHUB_REPO set up which refers to the DockerHub repository name
+  - files: 
+      - source: template_workflows/auto_release/build_docker_on_release.yml
+        dest: .github/workflows/build_docker_on_release.yml
+    repos: |
+      neurobagel/query-tool
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/federation-api
+      neurobagel/tools
+
   - files:
       - source: template_configs/LICENSE
         dest: LICENSE
@@ -61,54 +73,3 @@ group:
       neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
-
-# Workflows to build + push SEMVER Docker image on release
-neurobagel/query-tool:
-  - source: template_workflows/auto_release/build_docker_on_release.yml
-    dest: .github/workflows/build_docker_on_release.yml
-    template:
-      synced_repo:
-        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
-        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'query_tool'
-        release_tag: '${{ github.event.release.tag_name }}'
-
-neurobagel/api:
-  - source: template_workflows/auto_release/build_docker_on_release.yml
-    dest: .github/workflows/build_docker_on_release.yml
-    template:
-      synced_repo:
-        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
-        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'api'
-        release_tag: '${{ github.event.release.tag_name }}'
-
-neurobagel/bagel-cli:
-  - source: template_workflows/auto_release/build_docker_on_release.yml
-    dest: .github/workflows/build_docker_on_release.yml
-    template:
-      synced_repo:
-        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
-        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'bagelcli'
-        release_tag: '${{ github.event.release.tag_name }}'
-
-neurobagel/federation-api:
-  - source: template_workflows/auto_release/build_docker_on_release.yml
-    dest: .github/workflows/build_docker_on_release.yml
-    template:
-      synced_repo:
-        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
-        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'federation_api'
-        release_tag: '${{ github.event.release.tag_name }}'
-
-neurobagel/tools:
-  - source: template_workflows/auto_release/build_docker_on_release.yml
-    dest: .github/workflows/build_docker_on_release.yml
-    template:
-      synced_repo:
-        dockerhub_username: '${{ secrets.DOCKERHUB_USERNAME }}'
-        dockerhub_token: '${{ secrets.DOCKERHUB_TOKEN }}'
-        docker_repo_name: 'openneuro_upload'
-        release_tag: '${{ github.event.release.tag_name }}'
