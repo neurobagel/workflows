@@ -22,6 +22,7 @@ group:
       neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
+      neurobagel/ui
   
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
@@ -31,7 +32,6 @@ group:
         dest: .autorc
       - source: template_prs/auto_release_repo_pr.md
         dest: .github/pull_request_template.md
-    # TODO: add JS repos once React migration is complete?
     repos: |
       neurobagel/query-tool
       neurobagel/api
@@ -39,6 +39,7 @@ group:
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/recipes
+      neurobagel/ui
 
   # Workflow to build + push SEMVER Docker image on release
   # NOTE: Each repo needs to have a secret with the name DOCKERHUB_REPO set up 
@@ -52,11 +53,11 @@ group:
       neurobagel/bagel-cli
       neurobagel/federation-api
       neurobagel/tools
+      neurobagel/ui
 
   - files:
       - source: template_configs/LICENSE
         dest: LICENSE
-    # TODO: add JS repos once React migration is complete?
     repos: |
       neurobagel/annotation_tool
       neurobagel/api
@@ -74,3 +75,4 @@ group:
       neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
+      neurobagel/ui
