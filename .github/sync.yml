@@ -23,6 +23,16 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
+
+  # Workflow for releasing docker nightly
+  - files: 
+      - source: template_workflows/build_docker_nightly.yaml
+        dest: .github/workflows/build_docker_nightly.yaml
+    repos: |
+      neurobagel/query-tool
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/federation-api
   
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
