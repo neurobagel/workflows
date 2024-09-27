@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,5 +28,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: >
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name == 'query-tool' ? 'query_tool' : (github.event.repository.name == 'federation-api' ? 'federation_api' : github.event.repository.name) }}:nightly
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_REPO }}:nightly
