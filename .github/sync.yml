@@ -23,16 +23,6 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
-
-  # Workflow for releasing docker nightly
-  - files: 
-      - source: template_workflows/build_docker_nightly.yaml
-        dest: .github/workflows/build_docker_nightly.yaml
-    repos: |
-      neurobagel/query-tool
-      neurobagel/api
-      neurobagel/bagel-cli
-      neurobagel/federation-api
   
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
@@ -52,11 +42,14 @@ group:
       neurobagel/ui
 
   # Workflow to build + push SEMVER Docker image on release
+  # workflow to build + push Docker nightly image
   # NOTE: Each repo needs to have a secret with the name DOCKERHUB_REPO set up 
   # which refers to the DockerHub repository name
   - files: 
       - source: template_workflows/auto_release/build_docker_on_release.yml
         dest: .github/workflows/build_docker_on_release.yml
+      - source: template_workflows/build_docker_nightly.yaml
+        dest: .github/workflows/build_docker_nightly.yaml
     repos: |
       neurobagel/query-tool
       neurobagel/api
