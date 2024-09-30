@@ -48,8 +48,8 @@ group:
   - files: 
       - source: template_workflows/auto_release/build_docker_on_release.yml
         dest: .github/workflows/build_docker_on_release.yml
-      - source: template_workflows/build_docker_nightly.yaml
-        dest: .github/workflows/build_docker_nightly.yaml
+      - source: template_workflows/build_docker_nightly.yml
+        dest: .github/workflows/build_docker_nightly.yml
     repos: |
       neurobagel/query-tool
       neurobagel/api
