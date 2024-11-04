@@ -20,10 +20,17 @@ jobs:
     outputs:
       urls: ${{ steps.get_pr.outputs.pr_urls }}
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.NB_BOT_ID }}
+          private-key: ${{ secrets.NB_BOT_KEY }}
+
       - name: Get current repositories
         id: get_pr
         env:
-          GH_TOKEN: ${{ secrets.LAB_PAT  }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           MAX_REPO: 50
         run: |
           pr_urls=$(gh search prs --owner neurobagel label:_bot --state open --json 'url' | jq -c '[.[].url]')
@@ -32,11 +39,8 @@ jobs:
   process_prs:
     name: Process PR
     runs-on: ubuntu-latest
-    env:
-      # Note that all tasks in this job require a personal access token 
-      # with PROJECT permissions, see
-      # https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28#organization-permissions-for-projects
-      GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+    permissions:
+      pull-requests: write
     needs: get_prs
     strategy:
       fail-fast: false
@@ -44,6 +48,15 @@ jobs:
         url: ${{fromJSON(needs.get_prs.outputs.urls)}}
 
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.NB_BOT_ID }}
+          private-key: ${{ secrets.NB_BOT_KEY }}
+
+      - name: Set GH_TOKEN
+        run: echo "GH_TOKEN=${{ steps.generate-token.outputs.token }}" >> $GITHUB_ENV
       
       - name: Check if PR is in project
         id: in_project
