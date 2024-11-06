@@ -39,8 +39,6 @@ jobs:
   process_prs:
     name: Process PR
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     needs: get_prs
     strategy:
       fail-fast: false
