@@ -8,11 +8,19 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.NB_BOT_ID }}
+          private-key: ${{ secrets.NB_BOT_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: Checkout Repository
         uses: actions/checkout@master
       - name: Run GitHub File Sync
         uses: BetaHuhn/repo-file-sync-action@v1
         with:
-          GH_PAT: ${{ secrets.NB_PR_PAT }}
+          GH_PAT: ${{ steps.generate-token.outputs.token }}
           PR_LABELS: |
             _bot
