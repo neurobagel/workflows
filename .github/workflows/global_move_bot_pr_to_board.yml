@@ -27,10 +27,12 @@ jobs:
           app-id: ${{ vars.NB_BOT_ID }}
           private-key: ${{ secrets.NB_BOT_KEY }}
 
+      - name: Set GH_TOKEN
+        run: echo "GH_TOKEN=${{ steps.generate-token.outputs.token }}" >> $GITHUB_ENV
+
       - name: Get current repositories
         id: get_pr
         env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           MAX_REPO: 50
         run: |
           pr_urls=$(gh search prs --owner neurobagel label:_bot --state open --json 'url' | jq -c '[.[].url]')
