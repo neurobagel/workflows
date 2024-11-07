@@ -55,6 +55,7 @@ jobs:
           app-id: ${{ vars.NB_BOT_ID }}
           private-key: ${{ secrets.NB_BOT_KEY }}
 
+      # To avoid setting the GH_TOKEN in every step, we set it as an environment variable
       - name: Set GH_TOKEN
         run: echo "GH_TOKEN=${{ steps.generate-token.outputs.token }}" >> $GITHUB_ENV
       
