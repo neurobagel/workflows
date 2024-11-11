@@ -31,8 +31,6 @@ group:
         dest: .github/workflows/release.yaml
       - source: template_configs/.autorc
         dest: .autorc
-      - source: template_prs/auto_release_repo_pr.md
-        dest: .github/pull_request_template.md
     repos: |
       neurobagel/query-tool
       neurobagel/api
