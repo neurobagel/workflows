@@ -16,7 +16,6 @@ jobs:
         with:
           app-id: ${{ vars.NB_BOT_ID }}
           private-key: ${{ secrets.NB_BOT_KEY }}
-          owner: ${{ github.repository_owner }}
 
       - uses: actions/add-to-project@main
         with:
