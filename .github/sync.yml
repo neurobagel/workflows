@@ -23,7 +23,6 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
-      neurobagel/apis
   
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
@@ -39,7 +38,6 @@ group:
       neurobagel/tools
       neurobagel/recipes
       neurobagel/ui
-      neurobagel/apis
 
   # Workflow to build + push SEMVER Docker image on release
   # NOTE: Each repo needs to have a secret with the name DOCKERHUB_REPO set up 
@@ -89,4 +87,3 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
-      neurobagel/apis
