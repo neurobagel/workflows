@@ -4,7 +4,7 @@ group:
       - source: template_workflows/project_automation/
         dest: .github/workflows/
     repos: |
-      neurobagel/annotation_tool
+      neurobagel/legacy_annotation_tool
       neurobagel/annotation-tool
       neurobagel/api
       neurobagel/bagel-cli
@@ -73,7 +73,7 @@ group:
       - source: template_configs/LICENSE
         dest: LICENSE
     repos: |
-      neurobagel/annotation_tool
+      neurobagel/legacy_annotation_tool
       neurobagel/annotation-tool
       neurobagel/api
       neurobagel/bagel-cli
