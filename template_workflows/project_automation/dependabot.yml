@@ -26,8 +26,8 @@ updates:
     schedule:
       interval: 'weekly'
     labels:
-      - "_bot"
-      - "dependencies"
+      - '_bot'
+      - 'dependencies'
 
   # We instruct dependabot to open PRs both for security vulnerabilities
   # and for patch and minor version updates of javascript / npm dependencies.
@@ -36,9 +36,24 @@ updates:
   - package-ecosystem: 'npm'
     schedule:
       interval: 'weekly'
+    # This setting asks dependabot to group PRs for version updates of all development or production dependencies
+    # into single PRs to reduce the total number of PRs opened.
+    groups:
+      production-dependencies:
+        applies-to: version-updates
+        dependency-type: 'production'
+      development-dependencies:
+        applies-to: version-updates
+        dependency-type: 'development'
+    # We ignore all major version updates of dependencies.
+    # The idea is that we only bump major versions manually or if doing
+    # so addresses a security vulnerability.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     labels:
-      - "_bot"
-      - "dependencies"
+      - '_bot'
+      - 'dependencies'
 
   # We instruct dependabot to open PRs both for security vulnerabilities
   # of python / pip dependencies.
@@ -46,7 +61,10 @@ updates:
   # a requirements.txt file / use python / pip.
   - package-ecosystem: 'pip'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
+    # This setting instructs dependabot to not open PRs for version updates
+    # but to still open PRs for security vulnerabilities.
+    open-pull-requests-limit: 0
     labels:
-      - "_bot"
-      - "dependencies"
+      - '_bot'
+      - 'dependencies'
