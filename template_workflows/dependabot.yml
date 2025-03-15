@@ -1,7 +1,7 @@
 # This is a centrally maintained dependabot configuration file
 # that is applied to all repositories in the neurobagel organization.
 # Do not make changes to this file directly. Instead, make changes
-# to the template file in the workflows: https://github.com/neurobagel/workflows/tree/main/template_workflows/project_automation
+# to the template file in the workflows: https://github.com/neurobagel/workflows/tree/main/template_workflows/dependabot.yml
 
 version: 2
 updates:
