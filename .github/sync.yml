@@ -47,6 +47,7 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
+      neurobagel/react-bagel
 
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
