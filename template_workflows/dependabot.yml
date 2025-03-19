@@ -32,7 +32,7 @@ updates:
   # In repo settings, we have configured dependabot to open PRs for security updates.
   # Here, we configure dependabot to open version update PRs for only patch and minor versions of javascript / npm dependencies,
   # and configure labels for both types of dependabot PRs.
-  # Note: this workflow is only relevant for repositories that have
+  # Note: this configuration will only have an effect in repositories that have
   # a package.json file / use npm.
   - package-ecosystem: 'npm'
     schedule:
