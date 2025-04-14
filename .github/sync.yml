@@ -25,6 +25,30 @@ group:
       neurobagel/workflows
       neurobagel/ui
   
+  # Dependabot configuration file synchronization
+  - files:
+      - source: template_workflows/dependabot.yml
+        dest: .github/dependabot.yml
+    repos: |
+      neurobagel/legacy_annotation_tool
+      neurobagel/annotation-tool
+      neurobagel/api
+      neurobagel/bagel-cli
+      neurobagel/bagelschema
+      neurobagel/digest
+      neurobagel/documentation
+      neurobagel/neurobagel_examples
+      neurobagel/federation-api
+      neurobagel/menu
+      neurobagel/openneuro-annotations
+      neurobagel/planning
+      neurobagel/query-tool
+      neurobagel/recipes
+      neurobagel/tools
+      neurobagel/workflows
+      neurobagel/ui
+      neurobagel/react-bagel
+
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
       - source: template_workflows/auto_release/release.yaml
