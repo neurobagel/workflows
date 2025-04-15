@@ -72,7 +72,6 @@ group:
       - source: template_workflows/auto_release/build_docker_on_release.yml
         dest: .github/workflows/build_docker_on_release.yml
     repos: |
-      neurobagel/query-tool
       neurobagel/annotation-tool
       neurobagel/api
       neurobagel/bagel-cli
