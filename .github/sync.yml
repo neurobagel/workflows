@@ -24,6 +24,7 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
+      neurobagel/communities
   
   # Dependabot configuration file synchronization
   - files:
@@ -48,6 +49,7 @@ group:
       neurobagel/workflows
       neurobagel/ui
       neurobagel/react-bagel
+      neurobagel/communities
 
   # Workflow and configuration files for auto-releasing with intuit/auto
   - files:
@@ -114,3 +116,4 @@ group:
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
+      neurobagel/communities
