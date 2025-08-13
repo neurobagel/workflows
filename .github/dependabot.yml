@@ -1,8 +1,8 @@
-# This dependabot configuration is for keeping the actions up to date for the template workflows,
+# This dependabot configuration keeps the actions versions in the template workflows up to date,
 # to prevent version rollbacks when those template workflows are synced to other repos.
 # 
-# For the actual template dependabot.yml that is synced to other Neurobagel repos,
-# see https://github.com/neurobagel/workflows/tree/main/template_workflows/dependabot.yml
+# There is also a separate template dependabot.yml config that is synced to other Neurobagel repos:
+# https://github.com/neurobagel/workflows/tree/main/template_workflows/dependabot.yml
 
 version: 2
 updates:
