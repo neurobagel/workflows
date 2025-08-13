@@ -46,7 +46,6 @@ group:
       neurobagel/query-tool
       neurobagel/recipes
       neurobagel/tools
-      neurobagel/workflows
       neurobagel/ui
       neurobagel/react-bagel
       neurobagel/communities
