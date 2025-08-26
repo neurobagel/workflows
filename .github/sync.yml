@@ -80,7 +80,6 @@ group:
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/ui
-      neurobagel/bump-dictionary
 
   # Workflow to build + push Docker nightly image
   # NOTE: Each repo needs to have a secret with the name DOCKERHUB_REPO set up 
@@ -94,7 +93,6 @@ group:
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/ui
-      neurobagel/bump-dictionary
 
   - files:
       - source: template_configs/LICENSE
