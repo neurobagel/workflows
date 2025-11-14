@@ -7,6 +7,12 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    # Mainly setting permissions here to appease CodeQL
+    # Actual job permissions come from the dedicated Token we generate in
+    # generate-token
+    permissions:
+      contents: read
+
     steps:
       - name: Generate a token
         id: generate-token
