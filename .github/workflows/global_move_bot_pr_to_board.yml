@@ -22,6 +22,7 @@ jobs:
     # generate-token
     permissions:
       contents: read
+
     outputs:
       urls: ${{ steps.get_pr.outputs.pr_urls }}
     steps:
