@@ -17,6 +17,12 @@ jobs:
   get_prs:
     name: Get all PRs with the _bot labels
     runs-on: ubuntu-latest
+    # Mainly setting permissions here to appease CodeQL
+    # Actual job permissions come from the dedicated Token we generate in
+    # generate-token
+    permissions:
+      contents: read
+
     outputs:
       urls: ${{ steps.get_pr.outputs.pr_urls }}
     steps:
@@ -43,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+
     needs: get_prs
     strategy:
       fail-fast: false
