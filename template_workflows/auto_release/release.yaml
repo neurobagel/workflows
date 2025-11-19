@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     # Mainly setting permissions here to appease CodeQL
     # Actual job permissions come from the dedicated Token we generate in
-    # generate-token
+    # generate-token (which also has privileges for more scopes)
     permissions:
       contents: read
 
