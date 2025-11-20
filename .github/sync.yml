@@ -50,19 +50,38 @@ group:
       neurobagel/communities
       neurobagel/bump-dictionary
 
-  # Workflow and configuration files for auto-releasing with intuit/auto
+  # auto release for python projects on PyPI
   - files:
       - source: template_workflows/auto_release/release.yaml
         dest: .github/workflows/release.yaml
-      - source: template_configs/.autorc
+      - source: template_configs/.autorc_pypi
         dest: .autorc
     repos: |
-      neurobagel/query-tool
-      neurobagel/annotation-tool
+      neurobagel/bagel-cli
+      neurobagel/bump-dictionary
+
+  # auto release for "default" projects (e.g. Python without PyPI)
+  - files:
+      - source: template_workflows/auto_release/release.yaml
+        dest: .github/workflows/release.yaml
+      - source: template_configs/.autorc_default
+        dest: .autorc
+    repos: |
       neurobagel/api
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/recipes
+      neurobagel/ui
+
+  # auto release for javascript projects
+  - files:
+      - source: template_workflows/auto_release/release.yaml
+        dest: .github/workflows/release.yaml
+      - source: template_configs/.autorc_js
+        dest: .autorc
+    repos: |
+      neurobagel/query-tool
+      neurobagel/annotation-tool
       neurobagel/ui
 
   # Workflow to build + push SEMVER Docker image on release
