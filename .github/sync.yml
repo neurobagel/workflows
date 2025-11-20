@@ -71,7 +71,6 @@ group:
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/recipes
-      neurobagel/ui
 
   # auto release for javascript projects
   - files:
