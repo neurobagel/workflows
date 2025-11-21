@@ -52,7 +52,7 @@ group:
 
   # auto release for python projects on PyPI
   - files:
-      - source: template_workflows/auto_release/release.yaml
+      - source: template_workflows/auto_release/release_pypi.yaml
         dest: .github/workflows/release.yaml
       - source: template_configs/.autorc_pypi
         dest: .autorc
@@ -62,7 +62,7 @@ group:
 
   # auto release for "default" projects (e.g. Python without PyPI)
   - files:
-      - source: template_workflows/auto_release/release.yaml
+      - source: template_workflows/auto_release/release_default.yaml
         dest: .github/workflows/release.yaml
       - source: template_configs/.autorc_default
         dest: .autorc
@@ -74,7 +74,7 @@ group:
 
   # auto release for javascript projects
   - files:
-      - source: template_workflows/auto_release/release.yaml
+      - source: template_workflows/auto_release/release_default.yaml
         dest: .github/workflows/release.yaml
       - source: template_configs/.autorc_js
         dest: .autorc
