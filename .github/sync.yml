@@ -25,6 +25,7 @@ group:
       neurobagel/ui
       neurobagel/communities
       neurobagel/bump-dictionary
+      neurobagel/dev-docs
   
   # Dependabot configuration file synchronization
   - files:
