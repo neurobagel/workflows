@@ -17,7 +17,7 @@ group:
       neurobagel/menu
       neurobagel/openneuro-annotations
       neurobagel/planning
-      neurobagel/project
+      neurobagel/internal
       neurobagel/query-tool
       neurobagel/recipes
       neurobagel/tools
@@ -125,7 +125,7 @@ group:
       neurobagel/menu
       neurobagel/openneuro-annotations
       neurobagel/planning
-      neurobagel/project
+      neurobagel/internal
       neurobagel/query-tool
       neurobagel/recipes
       neurobagel/tools
