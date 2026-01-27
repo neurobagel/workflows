@@ -26,7 +26,7 @@ group:
       neurobagel/communities
       neurobagel/bump-dictionary
       neurobagel/dev-docs
-      neurobagel/configure-nb
+      neurobagel/py-app-template
   
   # Dependabot configuration file synchronization
   - files:
@@ -51,7 +51,7 @@ group:
       neurobagel/react-bagel
       neurobagel/communities
       neurobagel/bump-dictionary
-      neurobagel/configure-nb
+      neurobagel/py-app-template
 
   # auto release for python projects on PyPI
   - files:
@@ -62,6 +62,7 @@ group:
     repos: |
       neurobagel/bagel-cli
       neurobagel/bump-dictionary
+      neurobagel/py-app-template
 
   # auto release for "default" projects (e.g. Python without PyPI)
   - files:
@@ -135,4 +136,4 @@ group:
       neurobagel/ui
       neurobagel/communities
       neurobagel/bump-dictionary
-      neurobagel/configure-nb
+      neurobagel/py-app-template
