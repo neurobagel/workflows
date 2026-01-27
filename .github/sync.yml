@@ -62,7 +62,6 @@ group:
     repos: |
       neurobagel/bagel-cli
       neurobagel/bump-dictionary
-      neurobagel/py-app-template
 
   # auto release for "default" projects (e.g. Python without PyPI)
   - files:
@@ -75,6 +74,7 @@ group:
       neurobagel/federation-api
       neurobagel/tools
       neurobagel/recipes
+      neurobagel/py-app-template
 
   # auto release for javascript projects
   - files:
