@@ -51,6 +51,7 @@ jobs:
       pull-requests: write
 
     needs: get_prs
+    if: ${{ fromJSON(needs.get_prs.outputs.urls)[0] != null }}
     strategy:
       fail-fast: false
       matrix: 
