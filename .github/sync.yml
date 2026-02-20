@@ -62,6 +62,7 @@ group:
     repos: |
       neurobagel/bagel-cli
       neurobagel/bump-dictionary
+      neurobagel/configure-nb
 
   # auto release for "default" projects (e.g. Python without PyPI)
   - files:
