@@ -9,7 +9,6 @@ group:
       neurobagel/bagel-cli
       neurobagel/bagelschema
       neurobagel/bulk_annotations
-      neurobagel/browbids
       neurobagel/digest
       neurobagel/documentation
       neurobagel/neurobagel_examples
