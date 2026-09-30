@@ -140,3 +140,14 @@ group:
       neurobagel/bump-dictionary
       neurobagel/py-app-template
       neurobagel/configure-nb
+
+  - files:
+      - source: template_workflows/scorecard.yml
+        dest: .github/workflows/scorecard.yml
+    repos: |
+      neurobagel/annotation-tool
+      neurobagel/query-tool
+      neurobagel/api
+      neurobagel/federation-api
+      neurobagel/bagel-cli
+      neurobagel/configure-nb
