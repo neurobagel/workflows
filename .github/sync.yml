@@ -5,20 +5,15 @@ group:
         dest: .github/workflows/
     repos: |
       neurobagel/annotation-tool
-      neurobagel/api
       neurobagel/bagel-cli
       neurobagel/bagelschema
       neurobagel/bulk_annotations
       neurobagel/digest
       neurobagel/documentation
-      neurobagel/neurobagel_examples
-      neurobagel/federation-api
       neurobagel/menu
       neurobagel/openneuro-annotations
       neurobagel/planning
       neurobagel/internal
-      neurobagel/query-tool
-      neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
@@ -26,33 +21,34 @@ group:
       neurobagel/bump-dictionary
       neurobagel/dev-docs
       neurobagel/py-app-template
-      neurobagel/configure-nb
-  
+
+  # Add new issues to the org project board (only this workflow; the monorepo has its own
+  # stale.yml and handle_external_pr.yml)
+  - files:
+      - source: template_workflows/project_automation/add_iss2project.yml
+        dest: .github/workflows/add_iss2project.yml
+    repos: |
+      neurobagel/neurobagel
+
   # Dependabot configuration file synchronization
   - files:
       - source: template_workflows/dependabot.yml
         dest: .github/dependabot.yml
     repos: |
       neurobagel/annotation-tool
-      neurobagel/api
       neurobagel/bagel-cli
       neurobagel/bagelschema
       neurobagel/digest
       neurobagel/documentation
-      neurobagel/neurobagel_examples
-      neurobagel/federation-api
       neurobagel/menu
       neurobagel/openneuro-annotations
       neurobagel/planning
-      neurobagel/query-tool
-      neurobagel/recipes
       neurobagel/tools
       neurobagel/ui
       neurobagel/react-bagel
       neurobagel/communities
       neurobagel/bump-dictionary
       neurobagel/py-app-template
-      neurobagel/configure-nb
 
   # auto release for python projects on PyPI
   - files:
@@ -63,7 +59,6 @@ group:
     repos: |
       neurobagel/bagel-cli
       neurobagel/bump-dictionary
-      neurobagel/configure-nb
 
   # auto release for "default" projects (e.g. Python without PyPI)
   - files:
@@ -72,10 +67,7 @@ group:
       - source: template_configs/.autorc_default
         dest: .autorc
     repos: |
-      neurobagel/api
-      neurobagel/federation-api
       neurobagel/tools
-      neurobagel/recipes
       neurobagel/py-app-template
 
   # auto release for javascript projects
@@ -85,7 +77,6 @@ group:
       - source: template_configs/.autorc_js
         dest: .autorc
     repos: |
-      neurobagel/query-tool
       neurobagel/annotation-tool
       neurobagel/ui
 
@@ -97,9 +88,7 @@ group:
         dest: .github/workflows/build_docker_on_release.yml
     repos: |
       neurobagel/annotation-tool
-      neurobagel/api
       neurobagel/bagel-cli
-      neurobagel/federation-api
       neurobagel/tools
       neurobagel/ui
 
@@ -110,8 +99,6 @@ group:
       - source: template_workflows/build_docker_nightly.yml
         dest: .github/workflows/build_docker_nightly.yml
     repos: |
-      neurobagel/api
-      neurobagel/federation-api
       neurobagel/tools
       neurobagel/ui
 
@@ -120,34 +107,26 @@ group:
         dest: LICENSE
     repos: |
       neurobagel/annotation-tool
-      neurobagel/api
       neurobagel/bagel-cli
       neurobagel/bagelschema
       neurobagel/digest
       neurobagel/documentation
-      neurobagel/neurobagel_examples
-      neurobagel/federation-api
       neurobagel/menu
       neurobagel/openneuro-annotations
       neurobagel/planning
       neurobagel/internal
-      neurobagel/query-tool
-      neurobagel/recipes
       neurobagel/tools
       neurobagel/workflows
       neurobagel/ui
       neurobagel/communities
       neurobagel/bump-dictionary
       neurobagel/py-app-template
-      neurobagel/configure-nb
+      neurobagel/neurobagel
 
   - files:
       - source: template_workflows/scorecard.yml
         dest: .github/workflows/scorecard.yml
     repos: |
       neurobagel/annotation-tool
-      neurobagel/query-tool
-      neurobagel/api
-      neurobagel/federation-api
       neurobagel/bagel-cli
-      neurobagel/configure-nb
+      neurobagel/neurobagel
