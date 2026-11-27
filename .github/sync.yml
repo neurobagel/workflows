@@ -121,6 +121,7 @@ group:
       neurobagel/communities
       neurobagel/bump-dictionary
       neurobagel/py-app-template
+      neurobagel/neurobagel
 
   - files:
       - source: template_workflows/scorecard.yml
@@ -128,3 +129,4 @@ group:
     repos: |
       neurobagel/annotation-tool
       neurobagel/bagel-cli
+      neurobagel/neurobagel
