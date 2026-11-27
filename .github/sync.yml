@@ -21,7 +21,15 @@ group:
       neurobagel/bump-dictionary
       neurobagel/dev-docs
       neurobagel/py-app-template
-  
+
+  # Add new issues to the org project board (only this workflow; the monorepo has its own
+  # stale.yml and handle_external_pr.yml)
+  - files:
+      - source: template_workflows/project_automation/add_iss2project.yml
+        dest: .github/workflows/add_iss2project.yml
+    repos: |
+      neurobagel/neurobagel
+
   # Dependabot configuration file synchronization
   - files:
       - source: template_workflows/dependabot.yml
